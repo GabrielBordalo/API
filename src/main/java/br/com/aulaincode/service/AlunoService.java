@@ -23,10 +23,14 @@ public class AlunoService {
     }
 
     public Aluno atualizar(Long id, Aluno aluno) {
-        Aluno verificarAluno = alunoRepository.findById(id).get();
+        Aluno verificarAluno = alunoRepository.findById(id).orElseThrow((() -> new RuntimeException("Id inexistente")));
         verificarAluno.setNome(aluno.getNome());
-        return alunoRepository.save(aluno);
+        verificarAluno.setIdade(aluno.getIdade());
+        verificarAluno.setSexo(aluno.getSexo());
+        return alunoRepository.save(verificarAluno);
+    }
 
-
+    public void delete(Long id){
+        alunoRepository.deleteById(id);
     }
 }

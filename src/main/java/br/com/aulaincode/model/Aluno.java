@@ -17,6 +17,10 @@ public class Aluno {
     private int idade;
     private char sexo;
 
+    public Aluno(){
+
+    }
+
     public Aluno(Long id, int idade, String nome, char sexo) {
         this.id = id;
         this.idade = idade;

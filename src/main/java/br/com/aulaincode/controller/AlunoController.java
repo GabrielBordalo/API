@@ -2,7 +2,8 @@ package br.com.aulaincode.controller;
 
 import br.com.aulaincode.model.Aluno;
 import br.com.aulaincode.service.AlunoService;
-import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,14 +23,19 @@ public class AlunoController {
     }
 
     @PostMapping("/cadastraraluno")
-    public Aluno cadastrarAluno(@RequestBody Aluno aluno) {
-        return alunoService.cadastrar(aluno);
+    public ResponseEntity<Aluno> cadastrarAluno(@RequestBody Aluno aluno) {
+        var alunos = alunoService.cadastrar(aluno);
+        return ResponseEntity.ok().body(alunos);
     }
 
-    //@PutMapping("/{id}")
-    //@Transactional
-    //public Aluno verificarAluno(@PathVariable Long id, @RequestBody Aluno aluno) {
-     //   return alunoService.atualizar(id, aluno );
-    //}
+    @PutMapping("/{id}")
+    public Aluno verificarAluno(@PathVariable Long id, @RequestBody Aluno aluno) {
+        return alunoService.atualizar(id, aluno );
+    }
+
+    @DeleteMapping("/{id}")
+    public void apagar(@PathVariable Long id, Aluno aluno){
+         alunoService.delete(id);
+    }
 
 }
